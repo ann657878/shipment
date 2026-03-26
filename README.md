@@ -14,7 +14,7 @@ The application allows users to track shipments and manage shipment-related data
 * Razor Views
 * HTML, CSS, Bootstrap
 * JavaScript
-* SQLite / SQL Server (depending on configuration)
+* SQLite
 * xUnit (Unit Testing)
 
 ---

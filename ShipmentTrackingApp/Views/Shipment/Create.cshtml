@@ -1,0 +1,56 @@
+@using ShipmentTrackingApp.Models.Enums
+@model ShipmentTrackingApp.Models.Shipment
+@{ ViewData["Title"] = "Book Shipment"; }
+
+<h2>Book a New Shipment</h2><hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Create" class="card shadow-sm p-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label asp-for="CustomerName" class="form-label mb-1">Customer Name</label>
+                    <input asp-for="CustomerName" class="form-control" />
+                    <span asp-validation-for="CustomerName" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="CustomerEmail" class="form-label mb-1">Customer Email</label>
+                    <input asp-for="CustomerEmail" type="email" class="form-control" />
+                    <span asp-validation-for="CustomerEmail" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label asp-for="Origin" class="form-label mb-1">Origin</label>
+                    <input asp-for="Origin" class="form-control" />
+                    <span asp-validation-for="Origin" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Destination" class="form-label mb-1">Destination</label>
+                    <input asp-for="Destination" class="form-control" />
+                    <span asp-validation-for="Destination" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label asp-for="Type" class="form-label mb-1">Shipment Type</label>
+                    <select asp-for="Type" class="form-select" asp-items="Html.GetEnumSelectList<ShipmentType>()"></select>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="ExpectedDeliveryDate" class="form-label mb-1">Expected Delivery</label>
+                    <input asp-for="ExpectedDeliveryDate" type="date" class="form-control" value="@DateTime.UtcNow.AddDays(3).ToString("yyyy-MM-dd")" />
+                    <span asp-validation-for="ExpectedDeliveryDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-4">
+                <label asp-for="Notes" class="form-label mb-1">Notes</label>
+                <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-success me-2">Book Shipment</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts { @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} }

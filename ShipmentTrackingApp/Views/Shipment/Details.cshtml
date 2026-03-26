@@ -1,0 +1,59 @@
+@using ShipmentTrackingApp.Models.Enums
+@model ShipmentTrackingApp.Models.Shipment
+@{ ViewData["Title"] = "Shipment Details"; }
+
+<h2>Shipment: @Model.ShipmentId</h2>
+<hr />
+
+<div class="card mb-4 shadow-sm">
+    <div class="card-body">
+        <h5 class="card-title">Customer: @Model.CustomerName (@Model.CustomerEmail)</h5>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <p><strong>Route:</strong> @Model.Origin to @Model.Destination</p>
+                <p><strong>Type:</strong> @Model.Type</p>
+                <p><strong>Booking Date:</strong> @Model.BookingDate.ToShortDateString()</p>
+            </div>
+            <div class="col-md-6">
+                <p>
+                    <strong>Status:</strong> 
+                    <span class="badge @(Model.Status == ShipmentStatus.Delivered ? "bg-success" : Model.Status == ShipmentStatus.Delayed ? "bg-danger" : "bg-warning text-dark") fs-6">
+                        @Model.Status
+                    </span>
+                </p>
+                <p><strong>Expected Delivery:</strong> @Model.ExpectedDeliveryDate.ToShortDateString()</p>
+                @if (Model.ActualDeliveryDate.HasValue)
+                {
+                    <p><strong>Actual Delivery:</strong> @Model.ActualDeliveryDate.Value.ToShortDateString()</p>
+                }
+            </div>
+        </div>
+        @if (!string.IsNullOrEmpty(Model.Notes))
+        {
+            <div class="mt-3">
+                <strong>Notes:</strong> <p class="text-muted">@Model.Notes</p>
+            </div>
+        }
+    </div>
+</div>
+
+<h4>Update Status</h4>
+<form asp-action="UpdateStatus" method="post" class="d-flex w-50 gap-2 mb-4">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <select name="newStatus" class="form-select">
+        @foreach (var status in Enum.GetValues(typeof(ShipmentStatus)))
+        {
+            if ((ShipmentStatus)status == Model.Status)
+            {
+                <option value="@status" selected>@status</option>
+            }
+            else
+            {
+                <option value="@status">@status</option>
+            }
+        }
+    </select>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>

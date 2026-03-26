@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ShipmentTrackingApp.Tests/ShipmentTrackingApp.Tests.csproj" />
+  <Project Path="ShipmentTrackingApp/ShipmentTrackingApp.csproj" />
+</Solution>

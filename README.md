@@ -59,7 +59,7 @@ dotnet test
 
 ## 📌 Assumptions
 
-* The application uses a local database setup (SQLite or SQL Server).
+* The application uses a local database setup (SQLite).
 * In the deployed environment, data persistence may reset due to platform limitations.
 * Basic validation and error handling are implemented.
 
